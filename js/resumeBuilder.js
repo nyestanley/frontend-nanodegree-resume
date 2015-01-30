@@ -1,150 +1,206 @@
-/*
-var awesomeThoughts="I am Niesha and I am AWESOME!";
 
-console.log(awesomeThoughts);
-
-var funThoughts = awesomeThoughts.replace("AWESOME","FUN");
-
-$("#main").append(funThoughts);*/
-
-var formattedName = HTMLheaderName.replace("%data%", "Niesha Stanley");
-var formattedRole = HTMLheaderRole.replace("%data%", "Application Developer");
-
-$("#main").prepend(formattedRole);
-$("#main").prepend(formattedName); 
-
-/*var s = "audacity";
-
-var udacityizer = function(s){
-
-	s = "U" +s.slice(1);
-	return s;
-}
-
-console.log(udacityizer));
-var bio={
-	"name":"Niesha",
-	"role":"Application Developer",
-	"contact info": "nieshaamos@gmail.com",
-	"picture URL": null,
-	"welcome message":null,
-	"skills":null
-
-};
-
-$("#main").append(bio.name);
-
-var work={};
-
-	work.position="Application Developer";
-	work.employer="GE Capital";
-	work.yearsWorked=3;
-	work.city="Van Buren Township";
-
-var education={};
-
-	education["school"]="Wayne State University";
-	education["years attended"]=3;
-	education["school location"]="Detroit";
-
-$("#main").append(work.position);
-$("#main").append(education.school);*/
 
 var bio={
-	"name":"Niesha",
+	"name":"Niesha Stanley",
 	"role":"Application Developer",
-	"contact info": "nieshaamos@gmail.com",
-	"picture URL": null,
-	"welcome message":null,
-	"skills":["HTML","CSS","Javascript"]
+	"contacts": {
+		"mobile":"313-333-3333",
+		"email":"nieshaamos@gmail.com",
+		"twitter":"@nieshastanley",
+		"github":"https://github.com/nyestanley",
+		"blog":"",
+		"location":"Detroit, MI"
+	},
+	"biopic": "images/fry.jpg",
+	"welcomeMessage":"Thank you for visiting my online resume!",
+	"skills":["HTML","CSS","Javascript", "jQuery", "AJAX"],
+	"display":function (){
+		var formattedName = HTMLheaderName.replace("%data%", bio.name);
+		var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
+		var formattedMobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
+		var formattedEmail = HTMLemail.replace("%data%", bio.contacts.email);
+		var formattedTwitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
+		var formattedGithub = HTMLgithub.replace("%data%", bio.contacts.github);
+		var formattedBlog = HTMLblog.replace("%data%", bio.contacts.blog);
+		var formattedLocation = HTMLlocation.replace("%data%", bio.contacts.location);
+		var formattedImage = HTMLbioPic.replace("%data%",bio.biopic);
+		var formattedWelcomeMessage = HTMLWelcomeMsg.replace("%data%",bio.welcomeMessage);
+
+		$("#header").prepend(formattedRole);
+		$("#header").prepend(formattedName); 
+		$("#header").append(formattedImage);
+		$("#header").append(formattedWelcomeMessage);
+
+		$("#topContacts").append(formattedMobile + formattedEmail + formattedTwitter + formattedGithub + formattedLocation);
+		$("#footerContacts").append(formattedMobile + formattedEmail + formattedTwitter + formattedGithub + formattedLocation);
+
+		
+
+		if(bio.skills.length > 0){
+			$("#header").append(HTMLskillsStart);
+				for(skill in bio.skills){
+					formattedSkill = HTMLskills.replace("%data%", bio.skills[skill]);
+					$("#skills").append(formattedSkill);
+				}
+	
+		}
+		
+
+	}
 
 };
 
 var work={
 	"jobs":[
 	{
-		"position":"Lead Web Desingner and Programmer",
+		"title":"Lead Web Desingner and Programmer",
 		"employer": "Motor City Dev Chix",
 		"location":"motorcitydevchix.com",
-		"dates worked":"2014-current",
-		"job description":"Manage new and existing projects for professional web design services"
+		"dates":"2014-current",
+		"description":"Manage new and existing projects for professional web design services"
 	},
 	{
-		"position":"Application Developer",
+		"title":"Application Developer",
 		"employer": "GE Capital",
-		"location":"Van Buren Township",
-		"dates worked":"2012-current",
-		"job description":"Build and manage business rule engine and manage Underwriting Web Services for Touchless" +
+		"location":"Van Buren Township, MI",
+		"dates":"2012-current",
+		"description":"Build and manage business rule engine and manage Underwriting Web Services for Touchless" +
 		"systems"
 	},
 	{
-		"position":"Web Design Intern",
+		"title":"Web Design Intern",
 		"employer":"Crain Communications",
-		"location":"Detroit",
-		"dates worked":"2012",
-		"job description":"Implemented and installed plugins for company publications"
+		"location":"Detroit, MI",
+		"dates":"2012",
+		"description":"Supported the UI/UX team by implementing and modifying website features."
 	}
 
 
-	]
-}
+	],
+	"display":function (){
+	var formattedEmployer, formattedTitle, formattedWorkDates, formattedLocation, formattedJobDesc;
+		for(job in work.jobs){
+			$('#workExperience').append(HTMLworkStart);
+
+			formattedEmployer = HTMLworkEmployer.replace("%data%",work.jobs[job].employer);
+			formattedTitle = HTMLworkTitle.replace("%data%",work.jobs[job].title);
+			formattedWorkDates = HTMLworkDates.replace("%data%",work.jobs[job].dates)
+			formattedLocation = HTMLworkLocation.replace("%data%",work.jobs[job].location);
+			formattedJobDesc = HTMLworkDescription.replace("%data%",work.jobs[job].description);
+
+			$(".work-entry:last").append(formattedEmployer +  formattedTitle  + formattedLocation  
+		+ formattedWorkDates +  formattedJobDesc);
+
+
+		}
+	}
+};
 
 var education={
 	"schools":[
 	{
 		"name":"Wayne State University",
-		"city":"Detroit",
-		"degree":"BS",
-		"major":"Computer Science",
-		"concentrations":["software engineering","web technology"],
-		"graduation year":"2010"
+		"degree":"Bachelor Of Science",
+		"dates": "2008-2010",
+		"location":"Detroit, MI",
+		"majors":"Computer Science",
+		"url":"www.wayne.edu"
 
-	},
-	{
-		"name":"Udacity",
-		"degree":["Front End Web Developer","Full Stack Developer"]
 	}
-	]
-}
+	],
+	"onlineClasses":[
+		{
+		"school":"Udacity",
+		"title":"HTML & CSS",
+		"dates":"November 2014",
+		"url":"https://www.udacity.com/course/viewer#!/c-ud304-nd/l-2617868617",
+		
+		},
+		{
+			"school":"Udacity",
+			"title":"Version Control with Git and Github",
+			"dates":"January 2015",
+			"url":"https://www.udacity.com/course/ud775-nd"
+		},
+		{
+			"school":"Udacity",
+			"title":"Javascript Basics",
+			"dates":"February 2015",
+			"url":"https://www.udacity.com/course/viewer#!/c-ud804-nd"
+		},
+		{
+			"school":"Udacity",
+			"title":"Intro to jQuery",
+			"dates":"February 2015",
+			"url":"https://www.udacity.com/course/viewer#!/c-ud245-nd"
+		}
+	],
+	"display":function(){
+		var formattedSchool, formattedDegree, formattedDates, formattedLocation, formattedMajor, formattedTitle, formattedURL;
+		for(school in education.schools){
+			$('#education').append(HTMLschoolStart);
+
+			formattedSchool = HTMLschoolName.replace("%data%", education.schools[school].name);
+			formattedDegree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
+			formattedDates = HTMLschoolDates.replace("%data%", education.schools[school].dates);
+			formattedLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
+			formattedMajor = HTMLschoolMajor.replace("%data%", education.schools[school].majors);
+			$(".education-entry:last").append(formattedSchool + formattedDegree + formattedDates + formattedLocation + formattedMajor);
+
+		}
+
+		$('#education').append(HTMLonlineClasses);
+		for(clas in education.onlineClasses){
+			$('#education').append(HTMLschoolStart);
+
+			formattedTitle = HTMLonlineTitle .replace("%data%", education.onlineClasses[clas].title);
+			formattedSchool = HTMLonlineSchool.replace("%data%", education.onlineClasses[clas].school);
+			formattedDates = HTMLonlineDates.replace("%data%", education.onlineClasses[clas].dates);
+			formattedURL = HTMLonlineURL.replace("%data%", education.onlineClasses[clas].url);
+
+			$(".education-entry:last").append(formattedTitle + formattedSchool+ formattedDates + formattedURL);
+
+		}
+	}
+};
 
 var projects={
-	"portfolioURL":"motorcitydevchix.com"
-}
+	"projects":[
+		{
+			"title":"Udacity Project P1",
+			"dates":"December 2014",
+			"description":"Implement a web page mock using BootStrap CSS",
+			"images":["images/p1thumbnail.png"]
+		}
+	],
+	"display":function(){
 
-if(bio.skills.length > 0){
-	$("#header").append(HTMLskillsStart);
+		var formattedTitle, formattedDates, formattedDescription, formattedImage;
+		for(project in projects.projects){
+			$("#projects").append(HTMLprojectStart);
 
-	var formattedSkill;
-	for(skill in bio.skills){
-	formattedSkill = HTMLskills.replace("%data%", bio.skills[skill]);
-	$("#skills").append(formattedSkill);
+			formattedTitle = HTMLprojectTitle.replace("%data%",projects.projects[project].title);
+			formattedDates = HTMLprojectDates.replace("%data%",projects.projects[project].dates);
+			formattedDescription = HTMLprojectDescription.replace("%data%",projects.projects[project].description);
+			formattedImage = HTMLprojectImage.replace("%data%",projects.projects[project].image);
+
+			$(".project-entry:last").append(formattedTitle + formattedDates + formattedDescription + formattedImage);
+
+		}
+
 	}
 	
-}
+};
 
-function displayWork(){
-	var formattedEmployer, formattedTitle, formattedWorkDates, formattedLocation, formattedJobDesc;
-	for(job in work.jobs){
-	$('#workExperience').append(HTMLworkStart);
-
-	formattedEmployer = HTMLworkEmployer.replace("%data%",work.jobs[job].employer);
-	formattedTitle = HTMLworkTitle.replace("%data%",work.jobs[job].position);
-	formattedWorkDates = HTMLworkDates.replace("%data%",work.jobs[job]["dates worked"])
-	formattedLocation = HTMLworkLocation.replace("%data%",work.jobs[job].location);
-	formattedJobDesc = HTMLworkDescription.replace("%data%",work.jobs[job]["job description"]);
-
-	$(".work-entry:last").append(formattedEmployer +  formattedTitle  + formattedLocation  
-+ formattedWorkDates +  formattedJobDesc);
+bio.display();
+work.display();
+projects.display();
+education.display();
 
 
-	}
-}
-
-displayWork();
-
-/*$(document).click(function(loc) {
+$(document).click(function(loc) {
   logClicks(loc.pageX, loc.pageY);
-});*/
+});
 
 
 
@@ -161,7 +217,9 @@ function inName(){
 
 console.log(internationalName);
 	return internationalName;
-}
+};
 
 $("#main").append(internationalizeButton);
+
+$("#mapDiv").append(googleMap);
 
