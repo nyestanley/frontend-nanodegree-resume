@@ -213,3 +213,9 @@ span {
     display: block;
   }
 }
+
+#infoWindow{
+  color: #444ce5;
+  font-weight: bolder;
+}
+

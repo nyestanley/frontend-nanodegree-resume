@@ -182,9 +182,15 @@ var projects={
 			formattedTitle = HTMLprojectTitle.replace("%data%",projects.projects[project].title);
 			formattedDates = HTMLprojectDates.replace("%data%",projects.projects[project].dates);
 			formattedDescription = HTMLprojectDescription.replace("%data%",projects.projects[project].description);
-			formattedImage = HTMLprojectImage.replace("%data%",projects.projects[project].image);
 
-			$(".project-entry:last").append(formattedTitle + formattedDates + formattedDescription + formattedImage);
+			$(".project-entry:last").append(formattedTitle + formattedDates + formattedDescription);
+
+			for(image in projects.projects[project].images){
+
+				formattedImage = HTMLprojectImage.replace("%data%",projects.projects[project].images[image]);
+
+				$(".project-entry:last").append(formattedImage);
+			}
 
 		}
 
